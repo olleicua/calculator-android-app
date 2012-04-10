@@ -14,7 +14,9 @@ public class CalculatorActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        
+        text = Toast.makeText(CalculatorActivity.this, "", Toast.LENGTH_SHORT);
+        
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(this));
 
@@ -82,9 +84,10 @@ public class CalculatorActivity extends Activity {
                 default :
                 	break ;
                 }
-            	//display.setText(display());
-            	//display.show();
-            	Toast.makeText(CalculatorActivity.this, display(), Toast.LENGTH_SHORT).show();
+            	text.cancel();
+            	text = Toast.makeText(CalculatorActivity.this, display(), Toast.LENGTH_SHORT);
+            	text.show();
+            	//Toast.makeText(CalculatorActivity.this, display(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -139,7 +142,7 @@ public class CalculatorActivity extends Activity {
     		out += " x " ;
     		break ;
     	case DIVIDE :
-    		out += " Ö " ;
+    		out += " / " ;
     		break ;
     	default :
     		if (cleared) {
@@ -169,5 +172,6 @@ public class CalculatorActivity extends Activity {
     public int value = 0 ;
     public int previousValue = 0 ;
     public Object resultValue = null ;
+    public Toast text ;
     //public Toast display = Toast.makeText(CalculatorActivity.this, "", Toast.LENGTH_SHORT);
 }
