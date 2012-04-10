@@ -78,8 +78,10 @@ public class CalculatorActivity extends Activity {
                 	operator = NONE ;
                 	break ;
                 case 15 : // divide
-                	evaluate() ;
-                	operator = DIVIDE ;
+                	if (value != 0) {
+                		evaluate() ;
+                		operator = DIVIDE ;
+                	}
                 	break ;
                 default :
                 	break ;
