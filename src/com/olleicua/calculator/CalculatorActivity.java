@@ -22,73 +22,60 @@ public class CalculatorActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
             	switch (position) {
                 case 0 : // 1
-                	text += "1";
                 	number(1) ;
                 	break ;
                 case 1 : // 2
-                	text += "2";
                 	number(2) ;
                 	break ;
                 case 2 : // 3
-                	text += "3";
                 	number(3) ;
                 	break ;
                 case 3 : // plus
-                	text += "+";
                 	evaluate() ;
                 	operator = PLUS ;
                 	break ;
                 case 4 : // 4
-                	text += "4";
                 	number(4) ;
                 	break ;
                 case 5 : // 5
-                	text += "5";
                 	number(5) ;
                 	break ;
                 case 6 : // 6
-                	text += "6";
                 	number(6) ;
                 	break ;
                 case 7 : // minus
-                	text += "-";
                 	evaluate() ;
                 	operator = MINUS ;
                 	break ;
                 case 8 : // 7
-                	text += "7";
                 	number(7) ;
                 	break ;
                 case 9 : // 8
-                	text += "8";
                 	number(8) ;
                 	break ;
                 case 10 : // 9
-                	text += "9";
                 	number(9) ;
                 	break ;
                 case 11 : // times
-                	text += "x";
                 	evaluate() ;
                 	operator = TIMES ;
                 	break ;
                 case 12 : // equals
-                	text += "=";
                 	evaluate() ;
-                	value = previousValue ;
+                	//value = previousValue ;
+                	resultValue = previousValue ;
                 	break ;
                 case 13 : // zero
                 	number(0) ;
                 	break ;
                 case 14 : // clear
-                	text = "";
                 	cleared = true ;
                 	value = 0 ;
                 	previousValue = 0 ;
+                	resultValue = null ;
                 	operator = NONE ;
                 	break ;
                 case 15 : // divide
-                	text += "Ö";
                 	evaluate() ;
                 	operator = DIVIDE ;
                 	break ;
@@ -103,6 +90,9 @@ public class CalculatorActivity extends Activity {
     }
     
     public void number(int n) {
+    	if (resultValue != null) {
+    		resultValue = null ;
+    	}
     	cleared = false ;
     	value *= 10 ;
     	value += n ;
@@ -128,29 +118,42 @@ public class CalculatorActivity extends Activity {
     	default :
     		break ;
     	}
+    	if (resultValue != null) {
+    		previousValue = (Integer) resultValue ;
+    		resultValue = null ;
+    	}
     	value = 0 ;
     	operator = NONE ;
     }
     
     public String display() {
+    	String out = Integer.toString(previousValue) ;
     	switch (operator) {
     	case 1 :
-    		return Integer.toString(previousValue) + " + " + Integer.toString(value) ;
+    		out += " + " ;
+    		break ;
        	case 2 :
-    		return Integer.toString(previousValue) + " - " + Integer.toString(value) ;
+    		out += " - " ;
+    		break ;
     	case 3 :
-    		return Integer.toString(previousValue) + " x " + Integer.toString(value) ;
+    		out += " x " ;
+    		break ;
     	case 4 :
-    		return Integer.toString(previousValue) + " Ö " + Integer.toString(value) ;
+    		out += " Ö " ;
+    		break ;
     	default :
     		if (cleared) {
     			return "" ;
     		}
-    		if (0 == previousValue) {
+    		if (null != resultValue) {
+    			return Integer.toString((Integer) resultValue) ;
+    		}
+    		if (NONE == operator) {
     			return Integer.toString(value) ;
     		}
     		return Integer.toString(previousValue) ;
     	}
+    	return out + Integer.toString(value) ;
     }
 
     // OPERATOR CONSTANTS
@@ -161,10 +164,10 @@ public class CalculatorActivity extends Activity {
     private int DIVIDE = 4 ;
 
     // STATE VARIABLES
-    public String text = "" ;
     public Boolean cleared = true ;
     public int operator = NONE ;
     public int value = 0 ;
     public int previousValue = 0 ;
+    public Object resultValue = null ;
     //public Toast display = Toast.makeText(CalculatorActivity.this, "", Toast.LENGTH_SHORT);
 }
