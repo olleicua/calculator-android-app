@@ -100,19 +100,19 @@ public class CalculatorActivity extends Activity {
     
     public void evaluate() {
     	switch (operator) {
-    	case 1 :
+    	case PLUS :
     		previousValue += value ;
     		break ;
-    	case 2 :
+    	case MINUS :
     		previousValue -= value ;
     		break ;
-    	case 3 :
+    	case TIMES :
     		previousValue *= value ;
     		break ;
-    	case 4 :
+    	case DIVIDE :
     		previousValue /= value ;
     		break ;
-    	case 0 :
+    	case NONE :
     		previousValue = value ;
     		break ;
     	default :
@@ -129,16 +129,16 @@ public class CalculatorActivity extends Activity {
     public String display() {
     	String out = Integer.toString(previousValue) ;
     	switch (operator) {
-    	case 1 :
+    	case PLUS :
     		out += " + " ;
     		break ;
-       	case 2 :
+       	case MINUS :
     		out += " - " ;
     		break ;
-    	case 3 :
+    	case TIMES :
     		out += " x " ;
     		break ;
-    	case 4 :
+    	case DIVIDE :
     		out += " Ö " ;
     		break ;
     	default :
@@ -157,11 +157,11 @@ public class CalculatorActivity extends Activity {
     }
 
     // OPERATOR CONSTANTS
-    private int NONE = 0 ;
-    private int PLUS = 1 ;
-    private int MINUS = 2 ;
-    private int TIMES = 3 ;
-    private int DIVIDE = 4 ;
+    private static final int NONE = 0 ;
+    private static final int PLUS = 1 ;
+    private static final int MINUS = 2 ;
+    private static final int TIMES = 3 ;
+    private static final int DIVIDE = 4 ;
 
     // STATE VARIABLES
     public Boolean cleared = true ;
